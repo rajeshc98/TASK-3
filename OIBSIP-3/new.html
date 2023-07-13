@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script>
+    // JavaScript code goes here
+    function convertTemperature(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the input values
+      var temperature = parseFloat(document.getElementById('temperature').value);
+      var fromUnit = document.getElementById('fromUnit').value;
+      var toUnit = document.getElementById('toUnit').value;
+
+      // Check if the temperature is a valid number
+      if (isNaN(temperature)) {
+        alert('Please enter a valid temperature!');
+        return;
+      }
+
+      // Perform the conversion
+      var convertedTemperature;
+
+      if (fromUnit === 'celsius') {
+        if (toUnit === 'fahrenheit') {
+          convertedTemperature = temperature * 9/5 + 32;
+        } else if (toUnit === 'kelvin') {
+          convertedTemperature = temperature + 273.15;
+        }
+      } else if (fromUnit === 'fahrenheit') {
+        if (toUnit === 'celsius') {
+          convertedTemperature = (temperature - 32) * 5/9;
+        } else if (toUnit === 'kelvin') {
+          convertedTemperature = (temperature + 459.67) * 5/9;
+        }
+      } else if (fromUnit === 'kelvin') {
+        if (toUnit === 'celsius') {
+          convertedTemperature = temperature - 273.15;
+        } else if (toUnit === 'fahrenheit') {
+          convertedTemperature = temperature * 9/5 - 459.67;
+        }
+      }
+      
+      // Display the converted temperature
+      document.getElementById('result').textContent = convertedTemperature.toFixed() + ' ' + toUnit;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Temperature Converter</h1>
+    <form>
+      <label for="temperature">Temperature:</label>
+      <input type="text" id="temperature" placeholder="Enter temperature" required>
+
+      <label for="fromUnit">From:</label>
+      <select id="fromUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+
+      <label for="toUnit">To:</label>
+      <select id="toUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+
+      <button type="button" onclick="convertTemperature(event)">Convert</button>
+    </form>
+
+    <h3>Converted Temperature:</h3>
+    <div id="result-container">
+        <div id="result"></div>
+    </div>
+  </div>
+</body>
+</html>
